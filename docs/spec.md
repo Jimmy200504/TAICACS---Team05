@@ -391,14 +391,14 @@ The team has four members. Each member owns one track but must provide integrati
 
 | Member | Role | Main Responsibility |
 | --- | --- | --- |
-| Member A | Data and Evaluation Lead | Build email dataset, label examples, create attack set, calculate metrics. |
-| Member B | LLM and Prompt Security Lead | Design classifier instruction, structured query template, LLM API call, optional fine-tuning experiment. |
-| Member C | n8n Workflow Lead | Build n8n workflow, implement filtering Code node, routing, alerts, and workflow export. |
-| Member D | Reporting and Demo Lead | Maintain documentation, system diagrams, weekly reports, final presentation, and demo script. |
+| 范升維 | Data and Evaluation Lead | Build email dataset, label examples, create attack set, calculate metrics. |
+| 蔡明妡 | LLM and Prompt Security Lead | Design classifier instruction, structured query template, LLM API call, optional fine-tuning experiment. |
+| 任光謙 | n8n Workflow Lead | Build n8n workflow, implement filtering Code node, routing, alerts, and workflow export. |
+| 王昱閔 | Reporting and Demo Lead | Maintain documentation, system diagrams, weekly reports, final presentation, and demo script. |
 
 ### 11.1 Detailed Responsibilities
 
-#### Member A: Data and Evaluation Lead
+#### 范升維: Data and Evaluation Lead
 
 - Collect normal, trash, and malicious email examples.
 - Remove private information from the dataset.
@@ -407,7 +407,7 @@ The team has four members. Each member owns one track but must provide integrati
 - Implement or run evaluation scripts.
 - Produce final metric tables and charts.
 
-#### Member B: LLM and Prompt Security Lead
+#### 蔡明妡: LLM and Prompt Security Lead
 
 - Write trusted classifier instruction.
 - Design JSON schema and output examples.
@@ -416,7 +416,7 @@ The team has four members. Each member owns one track but must provide integrati
 - Compare baseline prompt vs StruQ-style prompt.
 - If feasible, explore small model fine-tuning or few-shot hardening.
 
-#### Member C: n8n Workflow Lead
+#### 任光謙: n8n Workflow Lead
 
 - Build email trigger or webhook trigger.
 - Implement field extraction and HTML-to-text conversion.
@@ -425,7 +425,7 @@ The team has four members. Each member owns one track but must provide integrati
 - Implement JSON validation and routing logic.
 - Export workflow JSON for submission.
 
-#### Member D: Reporting and Demo Lead
+#### 王昱閔: Reporting and Demo Lead
 
 - Keep `docs/spec.md`, `README.md`, and final report updated.
 - Draw architecture and data-flow diagrams.
