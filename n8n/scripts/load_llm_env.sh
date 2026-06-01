@@ -5,6 +5,7 @@
 #
 # Override any value before sourcing if needed:
 #   export LLM_MODEL="another/model"
+#   export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/REPLACE_WITH_TEAM_WEBHOOK"
 #   source scripts/load_llm_env.sh
 
 export LLM_PROVIDER="${LLM_PROVIDER:-lm-studio}"
@@ -21,8 +22,8 @@ if [ -n "${LLM_API_KEY:-}" ]; then
   export LLM_API_KEY
 fi
 
-if [ -n "${ALERT_WEBHOOK_URL:-}" ]; then
-  export ALERT_WEBHOOK_URL
+if [ -n "${DISCORD_WEBHOOK_URL:-}" ]; then
+  export DISCORD_WEBHOOK_URL
 fi
 
 echo "Loaded n8n LLM environment variables:"
@@ -35,6 +36,11 @@ echo "  LLM_TEMPERATURE=$LLM_TEMPERATURE"
 echo "  LLM_TOP_P=$LLM_TOP_P"
 echo "  LLM_MAX_TOKENS=$LLM_MAX_TOKENS"
 echo "  LLM_JSON_MODE=$LLM_JSON_MODE"
+if [ -n "${DISCORD_WEBHOOK_URL:-}" ]; then
+  echo "  DISCORD_WEBHOOK_URL configured=true"
+else
+  echo "  DISCORD_WEBHOOK_URL configured=false"
+fi
 echo ""
 echo "Start n8n from this shell so it inherits these values:"
 echo "  n8n"

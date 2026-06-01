@@ -1,6 +1,6 @@
 # Week 15 n8n Email Triage Workflow
 
-This folder contains the n8n workflow export for the StruQ-protected email triage project. The Week 15 workflow accepts sample email JSON through a webhook, filters untrusted email content, builds a StruQ-style structured prompt, calls a configurable local LLM endpoint, validates the JSON response, routes the email, and prepares an alert for risky cases.
+This folder contains the n8n workflow export for the StruQ-protected email triage project. The Week 15 workflow accepts sample email JSON through a webhook, filters untrusted email content, builds a StruQ-style structured prompt, calls a configurable local LLM endpoint, validates the JSON response, routes the email, and sends a Discord alert for risky cases.
 
 The workflow file is:
 
@@ -34,7 +34,7 @@ flowchart LR
     quarantine --> alert["Prepare Alert Payload"]
     manual --> alert
     alert --> send{"Should Send Alert?"}
-    send -->|yes| webhookAlert["Send Alert Webhook"]
+    send -->|yes| webhookAlert["Send Discord Alert"]
     send -->|no| skipped["Finalize Alert Skipped"]
     webhookAlert --> sent["Finalize Alert Sent"]
     sent --> respond
@@ -149,25 +149,33 @@ Fallback behavior:
 
 This means the LLM can suggest a result, but n8n makes the final routing decision with deterministic code.
 
-## Alert Behavior
+## Discord Alert Behavior
 
-The workflow prepares an alert payload for:
+The workflow prepares a Discord-compatible alert payload for:
 
 - `quarantine`
 - `manual_review`
 
-If an alert webhook is configured, n8n sends the payload. If no alert webhook is configured, the workflow still returns the prepared alert payload with:
+The alert body uses Discord's webhook format: `content` plus an `embeds` array. It includes the final action, label, confidence, message ID, reason, indicators, validation errors, model/provider, filtered email hash, and timestamp.
+
+If a valid Discord webhook is configured, n8n sends the payload. If no Discord webhook is configured, the workflow still returns the prepared Discord payload with:
 
 ```text
-alert_status: prepared_no_webhook_configured
+alert_status: prepared_no_discord_webhook_configured
 ```
 
-Set an alert webhook in request JSON:
+If the configured URL is not a Discord webhook URL, the workflow does not send it and returns:
+
+```text
+alert_status: invalid_discord_webhook_url
+```
+
+Set a Discord webhook in request JSON:
 
 ```json
 {
   "alert": {
-    "webhook_url": "https://example.test/alert-webhook"
+    "discord_webhook_url": "https://discord.com/api/webhooks/REPLACE_WITH_TEAM_WEBHOOK"
   }
 }
 ```
@@ -175,8 +183,10 @@ Set an alert webhook in request JSON:
 Or set it before starting n8n:
 
 ```powershell
-$env:ALERT_WEBHOOK_URL="https://example.test/alert-webhook"
+$env:DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/REPLACE_WITH_TEAM_WEBHOOK"
 ```
+
+Do not commit or share a real Discord webhook URL. Anyone with the full URL can post into the connected Discord channel. For a demo, each team should create its own channel webhook under **Channel Settings > Integrations > Webhooks**, then store the URL in `DISCORD_WEBHOOK_URL` or pass it as `alert.discord_webhook_url`.
 
 ## Import the Workflow
 

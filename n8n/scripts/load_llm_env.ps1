@@ -9,7 +9,7 @@ param(
   [string]$MaxTokens = "512",
   [string]$JsonMode = "false",
   [string]$ApiKey = "",
-  [string]$AlertWebhookUrl = ""
+  [string]$DiscordWebhookUrl = ""
 )
 
 $env:LLM_PROVIDER = $Provider
@@ -26,8 +26,8 @@ if ($ApiKey) {
   $env:LLM_API_KEY = $ApiKey
 }
 
-if ($AlertWebhookUrl) {
-  $env:ALERT_WEBHOOK_URL = $AlertWebhookUrl
+if ($DiscordWebhookUrl) {
+  $env:DISCORD_WEBHOOK_URL = $DiscordWebhookUrl
 }
 
 Write-Host "Loaded n8n LLM environment variables:"
@@ -40,6 +40,7 @@ Write-Host "  LLM_TEMPERATURE=$env:LLM_TEMPERATURE"
 Write-Host "  LLM_TOP_P=$env:LLM_TOP_P"
 Write-Host "  LLM_MAX_TOKENS=$env:LLM_MAX_TOKENS"
 Write-Host "  LLM_JSON_MODE=$env:LLM_JSON_MODE"
+Write-Host "  DISCORD_WEBHOOK_URL configured=$([bool]$env:DISCORD_WEBHOOK_URL)"
 Write-Host ""
 Write-Host "Start n8n from this PowerShell session so it inherits these values:"
 Write-Host "  n8n"
