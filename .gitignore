@@ -223,3 +223,12 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+# Local-only n8n Docker setup
+n8n/.env
+n8n/.env.*
+n8n/Dockerfile*
+n8n/.dockerignore
+n8n/docker/
+n8n/docker-compose*.yml
+n8n/DOCKER.md

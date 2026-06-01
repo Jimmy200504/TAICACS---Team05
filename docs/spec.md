@@ -474,6 +474,14 @@ The team has four members. Each member owns one track but must provide integrati
 - Show that the email does not cause unsafe routing.
 - Show fallback behavior for invalid JSON.
 
+**Week 15 n8n progress note:**
+
+The Week 15 workflow export at `n8n/workflows/email_triage_poc.json` now covers the full n8n track: StruQ filtering, structured prompt construction, provider-neutral LLM settings, JSON validation, explicit routing branches, and alert preparation. The workflow no longer depends on a fixed Ollama path or a fixed model name. LLM settings are loaded from environment variables before n8n starts, so the n8n track can use LM Studio locally while the LLM track can switch to another OpenAI-compatible backend such as Ollama without editing the workflow internals.
+
+For the current local demo, LM Studio is running on the project machine and exposes the loaded model `google/gemma-4-e4b`. Model discovery is available through `GET /api/v1/models`, while generation should use an OpenAI-compatible chat endpoint such as `/v1/chat/completions`. The workflow records the selected provider, model, model-list path, and chat path in the response so screenshots can show that the LLM backend was configured rather than hardcoded.
+
+The routing stage is now visible in n8n. Valid `normal` results go to the allow branch, valid `trash` results go to the archive branch, valid `malicious` results go to the quarantine branch, and all invalid JSON, unknown labels/actions, low-confidence results, or missing LLM configuration go to manual review. The quarantine and manual-review paths build an alert payload. If an alert webhook is configured, n8n sends it; otherwise the response keeps the prepared alert payload for checkpoint evidence.
+
 ### Week 16: Evaluation, Final Demo, and Report
 
 **Goal:** Freeze the system, run evaluation, and prepare final submission.
