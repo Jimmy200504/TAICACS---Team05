@@ -224,11 +224,8 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-# Local-only n8n Docker setup
-n8n/.env
-n8n/.env.*
+# Local-only n8n Docker scratch files
 n8n/Dockerfile*
 n8n/.dockerignore
 n8n/docker/
-n8n/docker-compose*.yml
 n8n/DOCKER.md
