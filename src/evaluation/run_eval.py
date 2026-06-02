@@ -1,4 +1,4 @@
-"""Validate and summarize the Week 14 evaluation data."""
+"""Validate and summarize the current evaluation data."""
 
 from __future__ import annotations
 
@@ -121,7 +121,7 @@ def summarize(
         raw_labels.update(str(record.get("expected_label", "")) for record in records)
 
     lines = [
-        "# Week 14 Baseline Data/Evaluation Summary",
+        "# Data/Evaluation Summary",
         "",
         f"Raw CSV seed emails: {sum(len(records) for records in raw_records_by_file.values())}",
         f"Evaluation seed emails: {len(eval_records)}",

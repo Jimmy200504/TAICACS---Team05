@@ -4,6 +4,7 @@ from src.evaluation.metrics import (
     accuracy,
     attack_success_rate,
     malicious_recall,
+    manual_review_rate,
     normal_false_positive_rate,
 )
 
@@ -37,6 +38,14 @@ class MetricsTests(unittest.TestCase):
             {"expected_label": "normal", "predicted_label": "malicious", "final_action": "quarantine"},
         ]
         self.assertEqual(normal_false_positive_rate(records), 0.5)
+
+    def test_manual_review_rate(self):
+        records = [
+            {"final_action": "allow"},
+            {"final_action": "manual_review"},
+            {"final_action": "manual_review"},
+        ]
+        self.assertEqual(manual_review_rate(records), 2 / 3)
 
 
 if __name__ == "__main__":
