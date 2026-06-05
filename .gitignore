@@ -229,3 +229,6 @@ n8n/Dockerfile*
 n8n/.dockerignore
 n8n/docker/
 n8n/DOCKER.md
+
+# Local Google OAuth client secrets
+client_secret_*.json

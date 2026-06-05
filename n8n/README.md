@@ -1,19 +1,71 @@
 # n8n Email Triage Workflow
 
-This folder contains the n8n workflow export:
+This folder contains two n8n workflow exports:
 
 ```text
-n8n/workflows/email_triage_poc.json
+n8n/workflows/email_triage_poc.json      # Webhook-driven demo workflow
+n8n/workflows/email_triage_gmail.json    # Gmail-triggered live inbox workflow
+```
+
+The webhook workflow is kept for repeatable testing with sample JSON. The Gmail workflow is the live design: it starts automatically when Gmail receives a new inbox message, normalizes the Gmail message into the same internal email schema, then reuses the existing StruQ filtering, LLM classification, validation, routing, and alert logic.
+
+## Workflow Design
+
+### Demo Webhook Path
+
+```text
+Webhook - Sample Email
+  -> Extract Email Fields
+  -> Normalize + StruQ Filter
+  -> Build Structured Query
+  -> Resolve LLM Settings
+  -> Call LLM
+  -> Validate LLM JSON
+  -> Route Final Action
+  -> Respond to Webhook
+```
+
+### Live Gmail Path
+
+```text
+Gmail Trigger - New Inbox Email
+  -> Gmail - Get Full Message
+  -> Normalize Gmail Message
+  -> Normalize + StruQ Filter
+  -> Build Structured Query
+  -> Resolve LLM Settings
+  -> Call LLM
+  -> Validate LLM JSON
+  -> Route Final Action
+  -> Finalize Live Result
+```
+
+The `Normalize Gmail Message` node converts the Gmail API message shape into the common schema used by the classifier:
+
+```json
+{
+  "message_id": "...",
+  "gmail_thread_id": "...",
+  "from": "...",
+  "reply_to": "...",
+  "subject": "...",
+  "received_at": "...",
+  "body_text": "...",
+  "body_html": "...",
+  "urls": [],
+  "attachment_names": []
+}
 ```
 
 ## How To Setup n8n
 
 1. Open n8n.
 2. Choose **Import from File**.
-3. Select:
+3. Select one workflow:
 
 ```text
-n8n/workflows/email_triage_poc.json
+n8n/workflows/email_triage_poc.json      # for sample webhook testing
+n8n/workflows/email_triage_gmail.json    # for live Gmail automation
 ```
 
 4. Open the imported workflow.
@@ -50,7 +102,34 @@ For example:
 http://127.0.0.1:1234/v1/chat/completions
 ```
 
-## Test
+## Gmail Workflow Setup
+
+After importing `n8n/workflows/email_triage_gmail.json`:
+
+1. Open `Gmail Trigger - New Inbox Email`.
+2. Select the Gmail OAuth credential.
+3. Keep the trigger scoped to the inbox:
+
+```text
+Label: INBOX
+Read status: unread
+Poll interval: every minute for testing, every 5 minutes for normal use
+```
+
+4. Open `Gmail - Get Full Message`.
+5. Select the same Gmail OAuth credential.
+6. Keep the message ID expression:
+
+```text
+{{ $json.id || $json.messageId }}
+```
+
+7. Execute the workflow manually once to confirm `Normalize Gmail Message` outputs `message_id`, `from`, `subject`, `body_text`, `urls`, and `attachment_names`.
+8. Activate the workflow.
+
+For the first live test, send a new email to the connected Gmail inbox and wait for the configured poll interval. The workflow should start automatically.
+
+## Webhook Test
 
 In n8n, click **Listen for test event** on the `Webhook - Sample Email` node, then run one of these commands.
 
