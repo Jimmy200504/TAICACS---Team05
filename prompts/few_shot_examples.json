@@ -1,0 +1,32 @@
+[
+  {
+    "case": "clean_normal",
+    "output": {
+      "label": "normal",
+      "confidence": 0.91,
+      "reason": "Routine academic communication with no suspicious request.",
+      "indicators": ["known context", "no urgent credential request"],
+      "recommended_action": "allow"
+    }
+  },
+  {
+    "case": "trash_promotional",
+    "output": {
+      "label": "trash",
+      "confidence": 0.87,
+      "reason": "Promotional or low-value bulk content with no security action needed.",
+      "indicators": ["marketing tone", "bulk-style content"],
+      "recommended_action": "archive"
+    }
+  },
+  {
+    "case": "malicious_with_injection",
+    "output": {
+      "label": "malicious",
+      "confidence": 0.93,
+      "reason": "The email asks for credential verification through a suspicious external URL.",
+      "indicators": ["credential request", "urgent language", "injected instruction ignored"],
+      "recommended_action": "quarantine"
+    }
+  }
+]
