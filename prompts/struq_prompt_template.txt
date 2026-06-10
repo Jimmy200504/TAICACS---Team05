@@ -1,0 +1,7 @@
+[MARK] [INST][COLN]
+{classifier_instruction}
+
+[MARK] [INPT][COLN]
+{email_data}
+
+[MARK] [RESP][COLN]

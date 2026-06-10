@@ -1,0 +1,6 @@
+{classifier_instruction}
+
+Email to classify:
+{email_data}
+
+Return only the JSON object now.
