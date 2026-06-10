@@ -290,12 +290,12 @@ classifier behavior.
     \toprule
     Metric & Baseline & Fine-tuned & Change \\
     \midrule
-    Overall accuracy & 0.444 & 0.593 & +0.149 \\
-    Malicious recall & 0.385 & 0.692 & +0.307 \\
-    Normal false positive rate & 0.000 & 0.000 & 0.000 \\
-    Manual review rate & 0.093 & 0.093 & 0.000 \\
-    Quarantine actions & 10 & 22 & +12 \\
-    Allow actions & 38 & 27 & -11 \\
+    Overall accuracy & 0.444 & 0.593 & \textcolor{red}{\textbf{+0.149}} \\
+    Malicious recall & 0.385 & 0.692 & \textcolor{red}{\textbf{+0.307}} \\
+    Normal false positive rate & 0.000 & 0.000 & \textbf{0.000} \\
+    Manual review rate & 0.093 & 0.093 & \textbf{0.000} \\
+    Quarantine actions & 10 & 22 & \textcolor{red}{\textbf{+12}} \\
+    Allow actions & 38 & 27 & \textcolor{red}{\textbf{-11}} \\
     \bottomrule
   \end{tabular}
   \caption{Overall end-to-end evaluation comparison.}
@@ -314,11 +314,11 @@ messages were not incorrectly quarantined in this evaluation.
     \toprule
     Metric on Prompt-Injection Attacks & Baseline & Fine-tuned & Change \\
     \midrule
-    Attack accuracy & 0.333 & 0.583 & +0.250 \\
-    Attack malicious recall & 0.300 & 0.600 & +0.300 \\
-    Attack success rate & 0.417 & 0.125 & -0.292 \\
-    Unsafe attacked-malicious actions & 10 & 3 & -7 \\
-    Manual review rate & 0.208 & 0.208 & 0.000 \\
+    Attack accuracy & 0.333 & 0.583 & \textcolor{red}{\textbf{+0.250}} \\
+    Attack malicious recall & 0.300 & 0.600 & \textcolor{red}{\textbf{+0.300}} \\
+    Attack success rate & 0.417 & 0.125 & \textcolor{red}{\textbf{-0.292}} \\
+    Unsafe attacked-malicious actions & 10 & 3 & \textcolor{red}{\textbf{-7}} \\
+    Manual review rate & 0.208 & 0.208 & \textbf{0.000} \\
     \bottomrule
   \end{tabular}
   \caption{Prompt-injection attack evaluation comparison.}
@@ -391,10 +391,10 @@ Table~\ref{tab:clean-eval-comparison} summarizes the clean-email results.
     \toprule
     Metric on Clean Emails & Baseline & Fine-tuned & Change \\
     \midrule
-    Clean accuracy & 0.533 & 0.600 & +0.067 \\
-    Clean malicious recall & 0.667 & 1.000 & +0.333 \\
-    Clean normal false positive rate & 0.000 & 0.000 & 0.000 \\
-    Clean manual review rate & 0.000 & 0.000 & 0.000 \\
+    Clean accuracy & 0.533 & 0.600 & \textcolor{red}{\textbf{+0.067}} \\
+    Clean malicious recall & 0.667 & 1.000 & \textcolor{red}{\textbf{+0.333}} \\
+    Clean normal false positive rate & 0.000 & 0.000 & \textbf{0.000} \\
+    Clean manual review rate & 0.000 & 0.000 & \textbf{0.000} \\
     \bottomrule
   \end{tabular}
   \caption{Clean-email evaluation comparison.}
@@ -414,7 +414,7 @@ low-value email, which remains an area for further improvement.
 \label{sec:demo}
 
 A demo video covering Tests 1, 5, and 6 is available at:\\
-\url{https://youtu.be/36CGOCbggPc}
+\url{https://youtu.be/TA-yMTOwrk4}
 
 The demo was run using the baseline configuration (google/gemma-4-e4b via LM
 Studio) to demonstrate the full n8n pipeline end-to-end. Quantitative evaluation
